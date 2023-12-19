@@ -6,8 +6,19 @@ $password = 'root';
 try {
     $pdo = new PDO($dsn, $user, $password);
 
-    // productsテーブルからすべてのカラムのデータを取得するためのSQL文を変数$sqlに代入する
-    $sql_select = 'SELECT * FROM products';
+    // orderパラメータの値が存在すれば（並び替えボタンを押したとき）、その値を変数$orderに代入する
+    if (isset($_GET['order'])) {
+        $order = $_GET['order'];
+    } else {
+        $order = NULL;
+    }
+
+    // orderパラメータの値によってSQL文を変更する
+    if ($order === 'desc') {
+        $sql_select = 'SELECT * FROM products ORDER BY updated_at DESC';
+    } else {
+        $sql_select = 'SELECT * FROM products ORDER BY updated_at ASC';
+    }
 
     // SQL文を実行する
     $stmt_select = $pdo->query($sql_select);
@@ -44,7 +55,12 @@ try {
             <h1>商品一覧</h1>
             <div class="products-ui">
                 <div>
-                    <!-- ここに並び替えボタンと検索ボックスを作成する -->
+                    <a href="read.php?order=desc">
+                        <img src="images/desc.png" alt="降順に並び替え" class="sort-img">
+                    </a>
+                    <a href="read.php?order=asc">
+                        <img src="images/asc.png" alt="昇順に並び替え" class="sort-img">
+                    </a>
                 </div>
                 <a href="#" class="btn">商品登録</a>
                 </div>
