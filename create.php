@@ -11,12 +11,12 @@ try {
     $sql_select = 'SELECT vendor_code FROM vendors';
 
     // SQL文を実行する
-    $stmt_select = $pdp->query($sql_select);
+    $stmt_select = $pdo->query($sql_select);
 
     // SQL文の実行結果を配列で取得する
     // 補足：PDO::FETCH_COLUMNは1つのカラムの値を1次元配列（多次元ではない普通の配列）で取得する設定である
-    $vendor_codes = $stmt_select->fetchAll(PDO::FETCH_COLUM);
-} catch (PDOexception $e) {
+    $vendor_codes = $stmt_select->fetchAll(PDO::FETCH_COLUMN);
+} catch (PDOException $e) {
     exit($e->getMessage());
 }
 ?>
@@ -54,10 +54,10 @@ try {
                 <label for="product_name">商品名</label>
                 <input type="text" name="product_name" maxlength="50" required>
 
-                <label for="product_code">単価</label>
+                <label for="price">単価</label>
                 <input type="number" name="price" min="0" max="100000000" required>
 
-                <label for="product_code">在庫数</label>
+                <label for="vendor_quantity">在庫数</label>
                 <input type="number" name="stock_quantity" min="0" max="100000000" required>
 
                 <label for="product_code">仕入先コード</label>
@@ -65,7 +65,7 @@ try {
                     <option disabled selected value>選択してください</option>
                     <?php
                     // 配列の中身を順番に取り出し、セレクトボックスの選択肢として出力する
-                    foreach ($vendor_code as $vendor_code) {
+                    foreach ($vendor_codes as $vendor_code) {
                         echo "<option value='{$vendor_code}'>{$vendor_code}</option>";
                     }
                     ?>
