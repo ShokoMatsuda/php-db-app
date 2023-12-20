@@ -72,13 +72,14 @@ try {
             <h1>商品一覧</h1>
             <div class="products-ui">
                 <div>
-                    <a href="read.php?order=desc">
+                    <a href="read.php?order=desc&keyword=<?= $keyword ?>">
                         <img src="images/desc.png" alt="降順に並び替え" class="sort-img">
                     </a>
-                    <a href="read.php?order=asc">
+                    <a href="read.php?order=asc&keyword=<?= $keyword ?>">
                         <img src="images/asc.png" alt="昇順に並び替え" class="sort-img">
                     </a>
                     <form action="read.php" method="get" class="search-form">
+                        <input type="hidden" name="order" value="<?= $order ?>">
                         <input type="text" class="search-box" placeholder="商品名で検索" name="keyword" value="<?= $keyword ?>">
                     </form>
                 </div>
