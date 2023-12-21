@@ -35,8 +35,6 @@ if (isset($_POST['submit'])) {
     } catch (PODException $e) {
         exit($e->getMessage());
     }
-
-
 }
 
 // セレクトボックスの選択肢として設定するため、仕入先コードの配列を取得する
